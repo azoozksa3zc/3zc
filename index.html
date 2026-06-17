@@ -129,7 +129,7 @@
             iosLink: "https://google.com",          
             androidLink: "https://discord.com/channels/1512974522914177104/1513655085366902804",      
             pcLink: "https://discord.com/channels/1512974522914177104/1513655224022204416",
-            webhookUrl: "https://discord.com/api/webhooks/1516735490659975208/TOKEN_HERE"            
+            webhookUrl: "https://discord.com/api/webhooks/1516749514604675156/NKnaBtezZstYhxLSnp9C6cxVx_cb9anymgfiGD4cTEmi_qtVXJ5mjcB5WuGv-rwwrqOQ"            
         };
     </script>
 
@@ -208,9 +208,6 @@
         function sendSuggestion() {
             const text = document.getElementById('suggestion-text').value.trim();
             if(!text) { alert('الرجاء كتابة الاقتراح أولاً!'); return; }
-            if(MY_CONFIG.webhookUrl.includes("TOKEN_HERE") || !MY_CONFIG.webhookUrl) {
-                alert('تنبيه: تأكد من إدخال الـ Webhook Token الكامل ليعمل الإرسال.'); return;
-            }
             
             fetch(MY_CONFIG.webhookUrl, {
                 method: 'POST',
