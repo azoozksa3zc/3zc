@@ -92,7 +92,6 @@
         
         .btn-youtube { background: #FF0000; color: white; }
 
-        /* حقول قسم الاقتراحات */
         .suggestion-input {
             width: 100%; padding: 12px; border-radius: 10px; background: rgba(6, 9, 19, 0.6);
             border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 12px; font-size: 0.9rem; resize: none;
@@ -130,8 +129,7 @@
             iosLink: "https://google.com",          
             androidLink: "https://discord.com/channels/1512974522914177104/1513655085366902804",      
             pcLink: "https://discord.com/channels/1512974522914177104/1513655224022204416",
-            // ⚠️ ضع رابط الـ Webhook الخاص بروم ديسكورد هنا لكي تصلك الاقتراحات مباشرة
-            webhookUrl: "ضع_رابط_الويب_هوك_هنا"            
+            webhookUrl: "https://discord.com/api/webhooks/1516735490659975208/TOKEN_HERE"            
         };
     </script>
 
@@ -209,12 +207,11 @@
             iosBadge.style.boxShadow = '0 0 10px var(--danger)';
         }
 
-        // دالة إرسال الاقتراحات إلى الديسكورد
         function sendSuggestion() {
             const text = document.getElementById('suggestion-text').value.trim();
             if(!text) { alert('الرجاء كتابة الاقتراح أولاً!'); return; }
-            if(MY_CONFIG.webhookUrl === "ضع_رابط_الويب_هوك_هنا" || !MY_CONFIG.webhookUrl) {
-                alert('يجب ضبط رابط الـ Webhook الخاص بسيرفرك في الكود أولاً لكي يعمل الإرسال.'); return;
+            if(MY_CONFIG.webhookUrl.includes("TOKEN_HERE") || !MY_CONFIG.webhookUrl) {
+                alert('تنبيه: تأكد من إدخال الـ Webhook Token الكامل ليعمل الإرسال.'); return;
             }
             
             fetch(MY_CONFIG.webhookUrl, {
@@ -232,7 +229,7 @@
                 alert('تم إرسال اقتراحك بنجاح، شكراً لك!');
                 document.getElementById('suggestion-text').value = '';
             }).catch(() => {
-                alert('حدث خطأ أثناء الإرسال، تأكد من إعداد الـ Webhook بشكل صحيح.');
+                alert('حدث خطأ أثناء الإرسال.');
             });
         }
     </script>
