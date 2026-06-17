@@ -22,101 +22,58 @@
         }
         .navbar {
             display: flex; justify-content: space-between; align-items: center; padding: 20px;
-            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0, 210, 255, 0.15);
-            position: sticky; top: 0; z-index: 100; background: rgba(6, 9, 19, 0.85);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+            position: sticky; top: 0; z-index: 100; background: rgba(6, 9, 19, 0.9);
         }
         .brand { 
-            font-size: 1.6rem; font-weight: 900; letter-spacing: 1px; 
-            text-shadow: 0 0 15px var(--neon-blue);
+            font-size: 1.6rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+            text-shadow: 0 0 20px var(--neon-blue);
             animation: pulseGlow 3s infinite alternate;
         }
-        .menu-btn { background: none; border: none; color: var(--text-main); font-size: 1.8rem; cursor: pointer; transition: 0.3s ease; }
-        .menu-btn:hover { color: var(--neon-blue); text-shadow: var(--neon-glow); }
+        .menu-btn { background: none; border: none; color: var(--text-main); font-size: 1.8rem; cursor: pointer; transition: 0.3s; }
+        .menu-btn:hover { color: var(--neon-blue); }
         
         .sidebar {
             position: fixed; top: 0; right: -100%; width: 75%; height: 100%;
-            background: #0b132b; z-index: 102; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: -5px 0 30px rgba(0,0,0,0.6); padding: 40px 20px;
-            border-left: 1px solid rgba(0, 210, 255, 0.2);
+            background: #060913; z-index: 102; transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.8); padding: 40px 20px;
+            border-left: 1px solid var(--neon-blue);
         }
         .sidebar.active { right: 0; }
-        .sidebar .close-btn { font-size: 2rem; background: none; border: none; color: #fff; float: right; cursor: pointer; transition: 0.3s ease; }
-        .sidebar .close-btn:hover { color: var(--danger); }
-        .sidebar-menu { list-style: none; margin-top: 60px; padding: 0; }
-        .sidebar-menu li { margin: 25px 0; }
-        .sidebar-menu a { color: var(--text-main); text-decoration: none; font-size: 1.2rem; display: block; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: right; transition: 0.3s ease; }
-        .sidebar-menu a:hover { color: var(--neon-blue); padding-right: 15px; border-bottom: 1px solid var(--neon-blue); }
+        .sidebar .close-btn { font-size: 2rem; background: none; border: none; color: #fff; cursor: pointer; }
+        .sidebar-menu { list-style: none; margin-top: 80px; }
+        .sidebar-menu li { margin: 30px 0; }
+        .sidebar-menu a { color: var(--text-main); text-decoration: none; font-size: 1.3rem; display: block; border-right: 3px solid transparent; padding-right: 15px; transition: 0.3s; }
+        .sidebar-menu a:hover { color: var(--neon-blue); border-right: 3px solid var(--neon-blue); }
         
-        .overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); backdrop-filter: blur(3px); z-index: 101; display:none; }
-        .overlay.active { display:block; }
-
-        .hero { padding: 40px 20px; text-align: center; }
-        .hero-title { 
-            font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; 
-            background: linear-gradient(135deg, #f8fafc 40%, var(--neon-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(0, 210, 255, 0.15);
-        }
-        .hero-desc { color: var(--text-muted); font-size: 1rem; }
-        .content { padding: 0 20px; display: flex; flex-direction: column; gap: 20px; max-width: 500px; margin: 0 auto; }
+        .hero { padding: 60px 20px; text-align: center; }
+        .hero-title { font-size: 2.5rem; font-weight: 900; margin-bottom: 10px; color: #fff; text-transform: uppercase; }
         
+        .content { padding: 0 20px; max-width: 500px; margin: 0 auto; }
         .card {
-            background: var(--bg-card); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px;
-            padding: 24px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.3); backdrop-filter: blur(10px);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            background: rgba(15, 22, 42, 0.5); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px;
+            padding: 25px; margin-bottom: 20px; backdrop-filter: blur(10px); transition: 0.4s;
+            position: relative; overflow: hidden;
         }
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(0, 210, 255, 0.35);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 210, 255, 0.1);
-        }
-
-        .badge { position: absolute; top: 22px; left: 20px; padding: 4px 12px; border-radius: 30px; font-size: 0.75rem; font-weight: bold; transition: 0.3s ease; }
-        .card-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
-        .card-desc { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 18px; }
+        .card:hover { border-color: var(--neon-blue); transform: translateY(-5px); }
+        .card-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; }
         
         .btn {
-            display: flex; justify-content: center; align-items: center; gap: 10px;
-            width: 100%; padding: 15px; margin-bottom: 12px; border-radius: 14px; font-size: 1rem; font-weight: 700; text-decoration: none;
-            position: relative; overflow: hidden; transition: all 0.3s ease;
+            display: block; width: 100%; padding: 15px; margin-bottom: 10px; border-radius: 8px;
+            text-align: center; font-weight: 700; text-decoration: none; color: #fff;
+            transition: 0.3s; border: 1px solid rgba(255,255,255,0.1);
         }
-        .btn:last-child { margin-bottom: 0; }
-        
-        .btn-primary { background: linear-gradient(135deg, #0052d4, #4364f7, #6fb1fc); color: #fff; border: none; cursor: pointer; }
-        .btn-primary:hover { box-shadow: 0 0 20px rgba(67, 100, 247, 0.5); transform: translateY(-1px); }
-        .btn-primary:disabled { background: #333; cursor: not-allowed; opacity: 0.6; }
-        
-        .btn-discord { background: #5865F2; color: white; }
-        .btn-discord:hover { box-shadow: 0 0 20px rgba(88, 101, 242, 0.5); transform: translateY(-1px); }
-        
-        .btn-youtube { background: #FF0000; color: white; }
+        .btn-primary { background: var(--neon-blue); color: #000; border: none; }
+        .btn-discord { background: #5865F2; }
+        .btn-youtube { background: #FF0000; }
+        .btn:hover { opacity: 0.8; transform: scale(1.02); }
 
         .suggestion-input {
-            width: 100%; padding: 12px; border-radius: 10px; background: rgba(6, 9, 19, 0.6);
-            border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 12px; font-size: 0.9rem; resize: none;
+            width: 100%; padding: 12px; border-radius: 8px; background: #0b132b;
+            border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 10px;
         }
-        .suggestion-input:focus { outline: none; border-color: var(--neon-blue); box-shadow: 0 0 10px rgba(0, 210, 255, 0.2); }
-        
-        .btn::after {
-            content: ''; position: absolute; top: -50%; left: -60%; width: 30%; height: 200%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%);
-            transform: rotate(25deg);
-            animation: lightSweep 4s infinite ease-in-out;
-        }
-        
-        .footer { text-align: center; margin-top: 40px; color: var(--text-muted); font-size: 0.85rem; }
 
-        @keyframes lightSweep {
-            0% { left: -60%; }
-            20% { left: 140%; }
-            100% { left: 140%; }
-        }
-        @keyframes pulseGlow {
-            0% { text-shadow: 0 0 10px rgba(0, 210, 255, 0.4); }
-            100% { text-shadow: 0 0 20px rgba(0, 210, 255, 0.8), 0 0 30px rgba(0, 210, 255, 0.3); }
-        }
+        @keyframes pulseGlow { 0% { text-shadow: 0 0 10px var(--neon-blue); } 100% { text-shadow: 0 0 25px var(--neon-blue); } }
     </style>
 </head>
 <body>
@@ -125,8 +82,6 @@
         const MY_CONFIG = {
             serverName: "3ZC COMMUNITY",
             discord: "https://discord.gg/w7ySdyDb",      
-            youtube: "#",     
-            iosStatus: "شغالة",                     
             iosLink: "https://google.com",          
             androidLink: "https://discord.com/channels/1512974522914177104/1513655085366902804",      
             pcLink: "https://discord.com/channels/1512974522914177104/1513655224022204416",
@@ -134,119 +89,70 @@
         };
     </script>
 
-    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
     <div class="sidebar" id="sidebar">
         <button class="close-btn" onclick="toggleMenu()">✕</button>
         <ul class="sidebar-menu">
-            <li><a href="#" onclick="toggleMenu()">الرئيسية 🏠</a></li>
-            <li><a id="menu-discord" href="#" target="_blank">الدعم الفني 👾</a></li>
-            <li><a id="menu-youtube" href="#">قناتنا 🔴</a></li>
+            <li><a href="#" onclick="toggleMenu()">الرئيسية</a></li>
+            <li><a id="menu-discord" href="#" target="_blank">الدعم الفني</a></li>
         </ul>
     </div>
 
     <div class="navbar">
-        <div class="brand" id="nav-title">3ZC COMMUNITY</div>
+        <div class="brand">3ZC</div>
         <button class="menu-btn" onclick="toggleMenu()">☰</button>
     </div>
     
-    <div class="hero"><h1 class="hero-title">موقع 3ZC COMMUNITY الرسمي</h1><p class="hero-desc">تعديلات وتحسينات الهاك الشغال بالكامل</p></div>
+    <div class="hero"><h1 class="hero-title">3ZC COMMUNITY</h1></div>
     
     <div class="content">
         <div class="card">
-            <span id="ios-badge" class="badge">جاري الفحص</span>
-            <div class="card-title">تطبيقات iOS 📱</div>
-            <p class="card-desc">تحميل الهاك المباشر لأجهزة الايفون والايباد</p>
-            <a id="ios-hack" href="#" target="_blank" class="btn btn-primary">🚀 تحميل نسخة ايفون</a>
+            <div class="card-title">تطبيقات iOS</div>
+            <a id="ios-hack" href="#" target="_blank" class="btn btn-primary">تحميل نسخة ايفون</a>
         </div>
         <div class="card">
-            <div class="card-title">هاك الاندرويد 🤖</div>
-            <p class="card-desc">هاك روبلكس اندوريد</p>
-            <a id="android-hack" href="#" target="_blank" class="btn btn-primary">🚀 تحميل نسخة أندرويد</a>
+            <div class="card-title">هاك الاندرويد</div>
+            <a id="android-hack" href="#" target="_blank" class="btn btn-primary">تحميل نسخة أندرويد</a>
         </div>
         <div class="card">
-            <div class="card-title">هاك البي سي 💻</div>
-            <p class="card-desc">هاك بي سي روبلكس</p>
-            <a id="pc-hack" href="#" target="_blank" class="btn btn-primary">🚀 تحميل نسخة بي سي</a>
+            <div class="card-title">هاك البي سي</div>
+            <a id="pc-hack" href="#" target="_blank" class="btn btn-primary">تحميل نسخة بي سي</a>
         </div>
         <div class="card">
-            <div class="card-title" style="justify-content: center; font-size: 1.1rem;">فروعنا</div>
-            <a id="main-discord" href="#" target="_blank" class="btn btn-discord">👾 سيرفر الديسكورد</a>
-            <a id="main-youtube" href="#" class="btn btn-youtube">🔴 يوتيوب</a>
+            <div class="card-title">فروعنا</div>
+            <a id="main-discord" href="#" target="_blank" class="btn btn-discord">سيرفر الديسكورد</a>
+            <a id="main-youtube" href="#" class="btn btn-youtube">يوتيوب</a>
         </div>
         <div class="card">
-            <div class="card-title" style="justify-content: center; font-size: 1.1rem;">اقتراحاتكم للموقع ✨</div>
-            <p class="card-desc" style="text-align: center; margin-bottom: 12px;">شاركنا رأيك أو اقتراحك لتطوير الموقع وسنستلمه فوراً</p>
+            <div class="card-title">اقتراحاتكم للموقع</div>
             <textarea id="suggestion-text" class="suggestion-input" rows="3" placeholder="اكتب اقتراحك هنا..."></textarea>
-            <button id="send-btn" onclick="sendSuggestion()" class="btn btn-primary">✉️ إرسال الاقتراح</button>
+            <button id="send-btn" onclick="sendSuggestion()" class="btn btn-primary">إرسال الاقتراح</button>
         </div>
     </div>
 
-    <div class="footer"><p>حقوق سيرفر <span id="footer-name">3ZC COMMUNITY</span> © 2026</p></div>
-
     <script>
-        function toggleMenu() {
-            document.getElementById('sidebar').classList.toggle('active');
-            document.getElementById('overlay').classList.toggle('active');
-        }
-
-        document.getElementById('nav-title').innerText = MY_CONFIG.serverName;
-        document.getElementById('footer-name').innerText = MY_CONFIG.serverName;
+        function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
         document.getElementById('main-discord').href = MY_CONFIG.discord;
         document.getElementById('menu-discord').href = MY_CONFIG.discord;
         document.getElementById('ios-hack').href = MY_CONFIG.iosLink;
         document.getElementById('android-hack').href = MY_CONFIG.androidLink;
         document.getElementById('pc-hack').href = MY_CONFIG.pcLink;
         
-        const iosBadge = document.getElementById('ios-badge');
-        if (MY_CONFIG.iosStatus === "شغالة") {
-            iosBadge.innerText = "الشهادة: شغالة ✅"; iosBadge.style.background = 'var(--success)'; iosBadge.style.color = '#000';
-            iosBadge.style.boxShadow = '0 0 10px var(--success)';
-        } else {
-            iosBadge.innerText = "الشهادة: متوقفة ❌"; iosBadge.style.background = 'var(--danger)'; iosBadge.style.color = '#fff';
-            iosBadge.style.boxShadow = '0 0 10px var(--danger)';
-        }
-
         function sendSuggestion() {
             const btn = document.getElementById('send-btn');
             const text = document.getElementById('suggestion-text').value.trim();
-            if(!text) { alert('الرجاء كتابة الاقتراح أولاً!'); return; }
-            
-            // تفعيل التوقيت (30 ثانية)
-            btn.disabled = true;
-            btn.innerText = "انتظر 30 ثانية...";
-
+            if(!text) { alert('الرجاء كتابة الاقتراح!'); return; }
+            btn.disabled = true; btn.innerText = "انتظر 30 ثانية...";
             fetch(MY_CONFIG.webhookUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    embeds: [{
-                        title: "📥 اقتراح جديد للموقع",
-                        description: text,
-                        color: 5814783,
-                        timestamp: new Date()
-                    }]
-                })
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ embeds: [{ title: "📥 اقتراح جديد", description: text, color: 0x00d2ff }] })
             }).then(() => {
-                alert('تم إرسال اقتراحك بنجاح، شكراً لك!');
-                document.getElementById('suggestion-text').value = '';
-                
-                // عداد تنازلي لإعادة تفعيل الزر
+                alert('تم الإرسال!'); document.getElementById('suggestion-text').value = '';
                 let timer = 30;
                 const countdown = setInterval(() => {
-                    timer--;
-                    btn.innerText = "انتظر " + timer + " ثانية...";
-                    if(timer <= 0) {
-                        clearInterval(countdown);
-                        btn.disabled = false;
-                        btn.innerText = "✉️ إرسال الاقتراح";
-                    }
+                    timer--; btn.innerText = "انتظر " + timer + " ثانية...";
+                    if(timer <= 0) { clearInterval(countdown); btn.disabled = false; btn.innerText = "إرسال الاقتراح"; }
                 }, 1000);
-
-            }).catch(() => {
-                alert('حدث خطأ أثناء الإرسال.');
-                btn.disabled = false;
-                btn.innerText = "✉️ إرسال الاقتراح";
-            });
+            }).catch(() => { alert('خطأ!'); btn.disabled = false; btn.innerText = "إرسال الاقتراح"; });
         }
     </script>
 </body>
