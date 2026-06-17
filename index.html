@@ -13,7 +13,6 @@
             --text-muted: #94a3b8;
             --success: #00ff66;
             --danger: #ff3333;
-            /* توهج نيون إضافي */
             --neon-glow: 0 0 20px rgba(0, 210, 255, 0.5);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
@@ -63,7 +62,6 @@
         .hero-desc { color: var(--text-muted); font-size: 1rem; }
         .content { padding: 0 20px; display: flex; flex-direction: column; gap: 20px; max-width: 500px; margin: 0 auto; }
         
-        /* حركة الكروت عند مرور الماوس والتوهج الحواف المتفاعل */
         .card {
             background: var(--bg-card); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px;
             padding: 24px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.3); backdrop-filter: blur(10px);
@@ -79,7 +77,6 @@
         .card-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
         .card-desc { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 18px; }
         
-        /* تأثير اللمعان الانسيابي التلقائي للأزرار */
         .btn {
             display: flex; justify-content: center; align-items: center; gap: 10px;
             width: 100%; padding: 15px; margin-bottom: 12px; border-radius: 14px; font-size: 1rem; font-weight: 700; text-decoration: none;
@@ -87,16 +84,21 @@
         }
         .btn:last-child { margin-bottom: 0; }
         
-        /* حركات التوهج للأزرار عند التفاعل */
-        .btn-primary { background: linear-gradient(135deg, #0052d4, #4364f7, #6fb1fc); color: #fff; }
+        .btn-primary { background: linear-gradient(135deg, #0052d4, #4364f7, #6fb1fc); color: #fff; border: none; cursor: pointer; }
         .btn-primary:hover { box-shadow: 0 0 20px rgba(67, 100, 247, 0.5); transform: translateY(-1px); }
         
         .btn-discord { background: #5865F2; color: white; }
         .btn-discord:hover { box-shadow: 0 0 20px rgba(88, 101, 242, 0.5); transform: translateY(-1px); }
         
         .btn-youtube { background: #FF0000; color: white; }
+
+        /* حقول قسم الاقتراحات */
+        .suggestion-input {
+            width: 100%; padding: 12px; border-radius: 10px; background: rgba(6, 9, 19, 0.6);
+            border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 12px; font-size: 0.9rem; resize: none;
+        }
+        .suggestion-input:focus { outline: none; border-color: var(--neon-blue); box-shadow: 0 0 10px rgba(0, 210, 255, 0.2); }
         
-        /* إضافة خط اللمعان الأبيض المتحرك تلقائياً عبر الأزرار */
         .btn::after {
             content: ''; position: absolute; top: -50%; left: -60%; width: 30%; height: 200%;
             background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%);
@@ -106,7 +108,6 @@
         
         .footer { text-align: center; margin-top: 40px; color: var(--text-muted); font-size: 0.85rem; }
 
-        /* الأنيميشن الخاص بالمسح الضوئي والتوهج النبضي */
         @keyframes lightSweep {
             0% { left: -60%; }
             20% { left: 140%; }
@@ -128,7 +129,9 @@
             iosStatus: "شغالة",                     
             iosLink: "https://google.com",          
             androidLink: "https://discord.com/channels/1512974522914177104/1513655085366902804",      
-            pcLink: "https://discord.com/channels/1512974522914177104/1513655224022204416"            
+            pcLink: "https://discord.com/channels/1512974522914177104/1513655224022204416",
+            // ⚠️ ضع رابط الـ Webhook الخاص بروم ديسكورد هنا لكي تصلك الاقتراحات مباشرة
+            webhookUrl: "ضع_رابط_الويب_هوك_هنا"            
         };
     </script>
 
@@ -171,6 +174,12 @@
             <a id="main-discord" href="#" target="_blank" class="btn btn-discord">💬 سيرفر الديسكورد</a>
             <a id="main-youtube" href="#" class="btn btn-youtube">📺 قريبا</a>
         </div>
+        <div class="card">
+            <div class="card-title" style="justify-content: center; font-size: 1.1rem;">اقتراحاتكم للموقع ✨</div>
+            <p class="card-desc" style="text-align: center; margin-bottom: 12px;">شاركنا رأيك أو اقتراحك لتطوير الموقع وسنستلمه فوراً</p>
+            <textarea id="suggestion-text" class="suggestion-input" rows="3" placeholder="اكتب اقتراحك هنا..."></textarea>
+            <button onclick="sendSuggestion()" class="btn btn-primary">✉️ إرسال الاقتراح</button>
+        </div>
     </div>
 
     <div class="footer"><p>حقوق سيرفر <span id="footer-name">3ZC COMMUNITY</span> © 2026</p></div>
@@ -198,6 +207,33 @@
         } else {
             iosBadge.innerText = "الشهادة: متوقفة ❌"; iosBadge.style.background = 'var(--danger)'; iosBadge.style.color = '#fff';
             iosBadge.style.boxShadow = '0 0 10px var(--danger)';
+        }
+
+        // دالة إرسال الاقتراحات إلى الديسكورد
+        function sendSuggestion() {
+            const text = document.getElementById('suggestion-text').value.trim();
+            if(!text) { alert('الرجاء كتابة الاقتراح أولاً!'); return; }
+            if(MY_CONFIG.webhookUrl === "ضع_رابط_الويب_هوك_هنا" || !MY_CONFIG.webhookUrl) {
+                alert('يجب ضبط رابط الـ Webhook الخاص بسيرفرك في الكود أولاً لكي يعمل الإرسال.'); return;
+            }
+            
+            fetch(MY_CONFIG.webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    embeds: [{
+                        title: "📥 اقتراح جديد للموقع",
+                        description: text,
+                        color: 5814783,
+                        timestamp: new Date()
+                    }]
+                })
+            }).then(() => {
+                alert('تم إرسال اقتراحك بنجاح، شكراً لك!');
+                document.getElementById('suggestion-text').value = '';
+            }).catch(() => {
+                alert('حدث خطأ أثناء الإرسال، تأكد من إعداد الـ Webhook بشكل صحيح.');
+            });
         }
     </script>
 </body>
