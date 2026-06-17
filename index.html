@@ -7,7 +7,7 @@
     <style>
         :root { --bg-main: #060913; --neon-blue: #00d2ff; --text-main: #f8fafc; --success: #00ff66; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background: #060913; color: var(--text-main); min-height: 100vh; padding-bottom: 40px; }
+        body { background: #060913; color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; }
         
         .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid rgba(0, 210, 255, 0.2); position: sticky; top: 0; z-index: 100; background: rgba(6, 9, 19, 0.95); }
         .brand { font-size: 1.8rem; font-weight: 900; cursor: pointer; text-shadow: 0 0 15px var(--neon-blue); }
@@ -25,7 +25,7 @@
         @keyframes shine { 0% { left: -100%; } 100% { left: 150%; } }
         
         .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; background: var(--success); color: #000; font-size: 0.75rem; font-weight: bold; margin-bottom: 10px; }
-        .suggestion-input { width: 100%; padding: 12px; border-radius: 8px; background: #0b132b; border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 10px; }
+        .footer { text-align: center; padding: 20px; margin-top: auto; color: #555; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -51,7 +51,7 @@
         <div class="brand" onclick="toggleMenu()">3ZC</div>
     </div>
     
-    <div style="padding: 40px 20px; max-width: 500px; margin: 0 auto;">
+    <div style="padding: 40px 20px; max-width: 500px; margin: 0 auto; width: 100%;">
         <div class="card">
             <span class="status-badge">الشهادة: شغالة ✅</span>
             <h3>تطبيقات iOS 📱</h3>
@@ -70,14 +70,16 @@
         <div class="card">
             <h3>فروعنا 🔗</h3>
             <a id="main-discord" href="#" target="_blank" class="btn" style="background:#5865F2;">سيرفر الديسكورد 👾</a>
-            <a id="main-youtube" href="#" class="btn" style="background:#FF0000;">يوتيوب 🔴</a>
+            <div class="btn" style="background:#333; cursor:not-allowed;">يوتيوب 🔴 (قريباً)</div>
         </div>
         <div class="card">
             <h3>اقتراحاتكم للموقع ✨</h3>
-            <textarea id="suggestion-text" class="suggestion-input" rows="3" placeholder="اكتب اقتراحك هنا..."></textarea>
+            <textarea id="suggestion-text" style="width: 100%; padding: 12px; border-radius: 8px; background: #0b132b; border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 10px;" rows="3" placeholder="اكتب اقتراحك هنا..."></textarea>
             <button id="send-btn" onclick="sendSuggestion()" class="btn" style="background:var(--neon-blue); color:#000;">إرسال الاقتراح ✉️</button>
         </div>
     </div>
+
+    <footer class="footer">جميع الحقوق محفوظة لـ 3ZC COMMUNITY © 2026</footer>
 
     <script>
         const C = { 
