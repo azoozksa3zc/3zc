@@ -3,201 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3ZC SERVER</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700&display=swap" rel="stylesheet">
+    <title>3ZC COMMUNITY</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Tajawal', sans-serif;
+        :root {
+            --bg-main: #060913;
+            --bg-card: rgba(15, 22, 42, 0.75);
+            --neon-blue: #00d2ff;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #00ff66;
+            --danger: #ff3333;
         }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
         body {
-            /* خلفية ليلية متدرجة فخمة متناسقة مع ألوان صورة السيرفر */
-            background: radial-gradient(circle at center, #0a0f1d 0%, #03050a 100%);
-            color: #ffffff;
-            min-height: 100vh;
-            padding-bottom: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background: radial-gradient(circle at top, #111a2e 0%, var(--bg-main) 100%);
+            color: var(--text-main); min-height: 100vh; padding-bottom: 40px; overflow-x: hidden;
         }
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center; padding: 20px;
+            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: sticky; top: 0; z-index: 100; background: rgba(6, 9, 19, 0.8);
+        }
+        .brand { font-size: 1.6rem; font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 15px var(--neon-blue); }
+        .menu-btn { background: none; border: none; color: var(--text-main); font-size: 1.8rem; cursor: pointer; }
+        
+        .sidebar {
+            position: fixed; top: 0; right: -100%; width: 75%; height: 100%;
+            background: #0b132b; z-index: 102; transition: 0.3s ease;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.5); padding: 40px 20px;
+        }
+        .sidebar.active { right: 0; }
+        .sidebar .close-btn { font-size: 2rem; background: none; border: none; color: #fff; float: right; cursor: pointer; }
+        .sidebar-menu { list-style: none; margin-top: 60px; padding: 0; }
+        .sidebar-menu li { margin: 25px 0; }
+        .sidebar-menu a { color: var(--text-main); text-decoration: none; font-size: 1.2rem; display: block; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: right; }
+        
+        .overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index: 101; display:none; }
+        .overlay.active { display:block; }
 
-        /* غطاء الهيدر الفخم باستخدام صورة شخصية السيرفر */
-        .server-banner {
-            width: 100%;
-            max-width: 500px;
-            height: 180px;
-            background-image: url('https://images.squarespace-cdn.com/content/v1/66042b322a36d933e8b0b5cc/ec433b5c-4fdf-44be-b33a-13170e309be0/3ZC+Banner.jpg');
-            background-size: cover;
-            background-position: center;
-            border-bottom: 2px solid rgba(56, 189, 248, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-            border-radius: 0 0 24px 24px;
-            margin-bottom: 30px;
-            position: relative;
+        .hero { padding: 40px 20px; text-align: center; }
+        .hero-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; }
+        .hero-desc { color: var(--text-muted); font-size: 1rem; }
+        .content { padding: 0 20px; display: flex; flex-direction: column; gap: 20px; max-width: 500px; margin: 0 auto; }
+        .card {
+            background: var(--bg-card); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px;
+            padding: 24px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.3); backdrop-filter: blur(10px);
         }
-
-        /* تظليل سفلي ناعم على الصورة لدمجها مع الخلفية */
-        .server-banner::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 40%;
-            background: linear-gradient(to top, #0a0f1d, transparent);
+        .badge { position: absolute; top: 22px; left: 20px; padding: 4px 12px; border-radius: 30px; font-size: 0.75rem; font-weight: bold; }
+        .card-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
+        .card-desc { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 18px; }
+        .btn {
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+            width: 100%; padding: 15px; margin-bottom: 12px; border-radius: 14px; font-size: 1rem; font-weight: 700; text-decoration: none;
         }
-
-        /* الحاوية الرئيسية للأزرار والمحتوى */
-        .main-container {
-            width: 92%;
-            max-width: 450px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(56, 189, 248, 0.15);
-            border-radius: 28px;
-            padding: 25px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
-        }
-
-        /* الأزرار الرئيسية المتوهجة ذات اللمعان */
-        .btn-purple {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-            /* لون أزرق ليلكي غامق فخم متناسق مع الصورة الجديدة */
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            color: white;
-            padding: 18px;
-            border-radius: 18px;
-            text-decoration: none;
-            font-size: 1.15rem;
-            font-weight: bold;
-            margin-bottom: 18px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-        }
-
-        /* تأثير اللمعان الفخم المتحرك تلقائياً على الأزرار */
-        .btn-purple::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: -60%;
-            width: 30%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, rgba(56, 189, 248, 0.3), transparent);
-            transform: skewX(-25deg);
-            animation: lightShine 4s infinite ease-in-out;
-        }
-
-        @keyframes lightShine {
-            0% { right: -60%; }
-            25% { right: 140%; }
-            100% { right: 140%; }
-        }
-
-        /* حركة الزر والتوهج عند تمرير الماوس أو اللمس */
-        .btn-purple:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.3);
-            border-color: rgba(56, 189, 248, 0.6);
-            background: linear-gradient(135deg, #273549 0%, #131d31 100%);
-        }
-
-        .btn-purple svg {
-            width: 20px;
-            height: 20px;
-            fill: #38bdf8;
-            filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.5));
-        }
-
-        /* بطاقة قسم المميزات */
-        .features-card {
-            background: rgba(255, 255, 255, 0.01);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 22px;
-            padding: 22px;
-            margin-top: 10px;
-        }
-
-        .features-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #38bdf8;
-            text-align: center;
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
-            text-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
-        }
-
-        /* قائمة المميزات */
-        .features-list {
-            list-style: none;
-        }
-
-        .features-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 1.05rem;
-            color: #e2e8f0;
-        }
-
-        .features-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        /* الأيقونات النجمية المتوهجة باللون الأزرق المضيء */
-        .sparkle-icon {
-            color: #38bdf8;
-            font-size: 1.2rem;
-            filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.8));
-        }
+        .btn:last-child { margin-bottom: 0; }
+        .btn-primary { background: linear-gradient(135deg, #0052d4, #4364f7, #6fb1fc); color: #fff; }
+        .btn-discord { background: #5865F2; color: white; }
+        .btn-youtube { background: #FF0000; color: white; }
+        .footer { text-align: center; margin-top: 40px; color: var(--text-muted); font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
-    <div class="server-banner"></div>
+    <script>
+        const MY_CONFIG = {
+            serverName: "3ZC COMMUNITY",
+            discord: "https://discord.gg/w7ySdyDb",      
+            youtube: "#",     
+            iosStatus: "شغالة",                     
+            iosLink: "https://google.com",          
+            androidLink: "https://discord.com/channels/1512974522914177104/1513655085366902804",      
+            pcLink: "https://discord.com/channels/1512974522914177104/1513655224022204416"            
+        };
+    </script>
 
-    <div class="main-container">
-
-        <a href="#" class="btn-purple">
-            <span>Delta Install</span>
-            <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18L5.33 11h4V16h5.34v-5h4L12 2z"/></svg>
-        </a>
-
-        <a href="#" class="btn-purple">
-            <span>Delta VNG Install</span>
-            <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zm7-18L5.33 11h4V16h5.34v-5h4L12 2z"/></svg>
-        </a>
-
-        <div class="features-card">
-            <h2 class="features-title">مميزات هاك سكيبكس</h2>
-            
-            <ul class="features-list">
-                <li class="features-item">
-                    <span>من غير مفتاح</span>
-                    <span class="sparkle-icon">✦</span>
-                </li>
-                <li class="features-item">
-                    <span>يوجد بحث سكريبتات</span>
-                    <span class="sparkle-icon">✦</span>
-                </li>
-            </ul>
-        </div>
-
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+    <div class="sidebar" id="sidebar">
+        <button class="close-btn" onclick="toggleMenu()">✕</button>
+        <ul class="sidebar-menu">
+            <li><a href="#" onclick="toggleMenu()">الرئيسية 🏠</a></li>
+            <li><a id="menu-discord" href="#" target="_blank">الدعم الفني 💬</a></li>
+            <li><a id="menu-youtube" href="#">قناتنا 📺</a></li>
+        </ul>
     </div>
 
+    <div class="navbar">
+        <div class="brand" id="nav-title">3ZC COMMUNITY</div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+    
+    <div class="hero"><h1 class="hero-title">موقع 3ZC COMMUNITY الرسمي</h1><p class="hero-desc">تعديلات وتحسينات الهاك الشغال بالكامل</p></div>
+    
+    <div class="content">
+        <div class="card">
+            <span id="ios-badge" class="badge">جاري الفحص</span>
+            <div class="card-title">تطبيقات iOS 📱</div>
+            <p class="card-desc">تحميل الهاك المباشر لأجهزة الايفون والايباد</p>
+            <a id="ios-hack" href="#" target="_blank" class="btn btn-primary">🚀 تحميل نسخة ايفون</a>
+        </div>
+        <div class="card">
+            <div class="card-title">هاك الاندرويد 🤖</div>
+            <p class="card-desc">هاك روبلكس اندوريد</p>
+            <a id="android-hack" href="#" target="_blank" class="btn btn-primary">🚀 تحميل نسخة أندرويد</a>
+        </div>
+        <div class="card">
+            <div class="card-title">هاك البي سي 💻</div>
+            <p class="card-desc">هاك بي سي روبلكس</p>
+            <a id="pc-hack" href="#" target="_blank" class="btn btn-primary">🚀 تحميل نسخة بي سي</a>
+        </div>
+        <div class="card">
+            <div class="card-title" style="justify-content: center; font-size: 1.1rem;">فروعنا</div>
+            <a id="main-discord" href="#" target="_blank" class="btn btn-discord">💬 سيرفر الديسكورد</a>
+            <a id="main-youtube" href="#" class="btn btn-youtube">📺 قريبا</a>
+        </div>
+    </div>
+
+    <div class="footer"><p>حقوق سيرفر <span id="footer-name">3ZC COMMUNITY</span> © 2026</p></div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+
+        document.getElementById('nav-title').innerText = MY_CONFIG.serverName;
+        document.getElementById('footer-name').innerText = MY_CONFIG.serverName;
+        document.getElementById('main-discord').href = MY_CONFIG.discord;
+        document.getElementById('menu-discord').href = MY_CONFIG.discord;
+        document.getElementById('main-youtube').removeAttribute('target');
+        document.getElementById('menu-youtube').removeAttribute('target');
+        document.getElementById('ios-hack').href = MY_CONFIG.iosLink;
+        document.getElementById('android-hack').href = MY_CONFIG.androidLink;
+        document.getElementById('pc-hack').href = MY_CONFIG.pcLink;
+        
+        const iosBadge = document.getElementById('ios-badge');
+        if (MY_CONFIG.iosStatus === "شغالة") {
+            iosBadge.innerText = "الشهادة: شغالة ✅"; iosBadge.style.background = 'var(--success)'; iosBadge.style.color = '#000';
+        } else {
+            iosBadge.innerText = "الشهادة: متوقفة ❌"; iosBadge.style.background = 'var(--danger)'; iosBadge.style.color = '#fff';
+        }
+    </script>
 </body>
 </html>
