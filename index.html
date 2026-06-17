@@ -86,6 +86,7 @@
         
         .btn-primary { background: linear-gradient(135deg, #0052d4, #4364f7, #6fb1fc); color: #fff; border: none; cursor: pointer; }
         .btn-primary:hover { box-shadow: 0 0 20px rgba(67, 100, 247, 0.5); transform: translateY(-1px); }
+        .btn-primary:disabled { background: #333; cursor: not-allowed; opacity: 0.6; }
         
         .btn-discord { background: #5865F2; color: white; }
         .btn-discord:hover { box-shadow: 0 0 20px rgba(88, 101, 242, 0.5); transform: translateY(-1px); }
@@ -176,7 +177,7 @@
             <div class="card-title" style="justify-content: center; font-size: 1.1rem;">اقتراحاتكم للموقع ✨</div>
             <p class="card-desc" style="text-align: center; margin-bottom: 12px;">شاركنا رأيك أو اقتراحك لتطوير الموقع وسنستلمه فوراً</p>
             <textarea id="suggestion-text" class="suggestion-input" rows="3" placeholder="اكتب اقتراحك هنا..."></textarea>
-            <button onclick="sendSuggestion()" class="btn btn-primary">✉️ إرسال الاقتراح</button>
+            <button id="send-btn" onclick="sendSuggestion()" class="btn btn-primary">✉️ إرسال الاقتراح</button>
         </div>
     </div>
 
@@ -206,9 +207,14 @@
         }
 
         function sendSuggestion() {
+            const btn = document.getElementById('send-btn');
             const text = document.getElementById('suggestion-text').value.trim();
             if(!text) { alert('الرجاء كتابة الاقتراح أولاً!'); return; }
             
+            // تفعيل التوقيت (30 ثانية)
+            btn.disabled = true;
+            btn.innerText = "انتظر 30 ثانية...";
+
             fetch(MY_CONFIG.webhookUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -223,8 +229,23 @@
             }).then(() => {
                 alert('تم إرسال اقتراحك بنجاح، شكراً لك!');
                 document.getElementById('suggestion-text').value = '';
+                
+                // عداد تنازلي لإعادة تفعيل الزر
+                let timer = 30;
+                const countdown = setInterval(() => {
+                    timer--;
+                    btn.innerText = "انتظر " + timer + " ثانية...";
+                    if(timer <= 0) {
+                        clearInterval(countdown);
+                        btn.disabled = false;
+                        btn.innerText = "✉️ إرسال الاقتراح";
+                    }
+                }, 1000);
+
             }).catch(() => {
                 alert('حدث خطأ أثناء الإرسال.');
+                btn.disabled = false;
+                btn.innerText = "✉️ إرسال الاقتراح";
             });
         }
     </script>
