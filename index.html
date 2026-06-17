@@ -25,6 +25,7 @@
         @keyframes shine { 0% { left: -100%; } 100% { left: 150%; } }
         
         .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; background: var(--success); color: #000; font-size: 0.75rem; font-weight: bold; margin-bottom: 10px; }
+        .suggestion-input { width: 100%; padding: 12px; border-radius: 8px; background: #0b132b; border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -45,7 +46,7 @@
     </div>
 
     <div class="navbar">
-        <button style="background:none; border:none; color:white; font-size:1.8rem; cursor:pointer;" onclick="toggleMenu()">☰</button>
+        <div style="width: 40px;"></div>
         <h1 style="font-size: 1.2rem;">3ZC COMMUNITY</h1>
         <div class="brand" onclick="toggleMenu()">3ZC</div>
     </div>
@@ -71,16 +72,36 @@
             <a id="main-discord" href="#" target="_blank" class="btn" style="background:#5865F2;">سيرفر الديسكورد 👾</a>
             <a id="main-youtube" href="#" class="btn" style="background:#FF0000;">يوتيوب 🔴</a>
         </div>
+        <div class="card">
+            <h3>اقتراحاتكم للموقع ✨</h3>
+            <textarea id="suggestion-text" class="suggestion-input" rows="3" placeholder="اكتب اقتراحك هنا..."></textarea>
+            <button id="send-btn" onclick="sendSuggestion()" class="btn" style="background:var(--neon-blue); color:#000;">إرسال الاقتراح ✉️</button>
+        </div>
     </div>
 
     <script>
-        const C = { discord: "https://discord.gg/w7ySdyDb", ios: "https://google.com", android: "https://discord.com/channels/1512974522914177104/1513655085366902804", pc: "https://discord.com/channels/1512974522914177104/1513655224022204416" };
+        const C = { 
+            discord: "https://discord.gg/w7ySdyDb", 
+            ios: "https://google.com", 
+            android: "https://discord.com/channels/1512974522914177104/1513655085366902804", 
+            pc: "https://discord.com/channels/1512974522914177104/1513655224022204416",
+            webhook: "https://discord.com/api/webhooks/1516749514604675156/NKnaBtezZstYhxLSnp9C6cxVx_cb9anymgfiGD4cTEmi_qtVXJ5mjcB5WuGv-rwwrqOQ"
+        };
         function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
         document.getElementById('side-discord').href = C.discord;
         document.getElementById('main-discord').href = C.discord;
         document.getElementById('ios-hack').href = C.ios;
         document.getElementById('android-hack').href = C.android;
         document.getElementById('pc-hack').href = C.pc;
+
+        function sendSuggestion() {
+            const btn = document.getElementById('send-btn');
+            const text = document.getElementById('suggestion-text').value.trim();
+            if(!text) return alert('اكتب اقتراحك أولاً!');
+            btn.disabled = true; btn.innerText = "انتظر 30 ثانية...";
+            fetch(C.webhook, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({embeds: [{title: "📥 اقتراح جديد", description: text, color: 0x00d2ff}]}) })
+            .then(() => { alert('تم الإرسال!'); document.getElementById('suggestion-text').value = ''; let t = 30; const i = setInterval(() => { t--; btn.innerText = "انتظر " + t + " ثانية..."; if(t <= 0) { clearInterval(i); btn.disabled = false; btn.innerText = "إرسال الاقتراح ✉️"; } }, 1000); });
+        }
     </script>
 </body>
 </html>
