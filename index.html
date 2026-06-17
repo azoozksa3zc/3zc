@@ -13,6 +13,8 @@
             --text-muted: #94a3b8;
             --success: #00ff66;
             --danger: #ff3333;
+            /* توهج نيون إضافي */
+            --neon-glow: 0 0 20px rgba(0, 210, 255, 0.5);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
         body {
@@ -21,46 +23,99 @@
         }
         .navbar {
             display: flex; justify-content: space-between; align-items: center; padding: 20px;
-            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05);
-            position: sticky; top: 0; z-index: 100; background: rgba(6, 9, 19, 0.8);
+            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0, 210, 255, 0.15);
+            position: sticky; top: 0; z-index: 100; background: rgba(6, 9, 19, 0.85);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
         }
-        .brand { font-size: 1.6rem; font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 15px var(--neon-blue); }
-        .menu-btn { background: none; border: none; color: var(--text-main); font-size: 1.8rem; cursor: pointer; }
+        .brand { 
+            font-size: 1.6rem; font-weight: 900; letter-spacing: 1px; 
+            text-shadow: 0 0 15px var(--neon-blue);
+            animation: pulseGlow 3s infinite alternate;
+        }
+        .menu-btn { background: none; border: none; color: var(--text-main); font-size: 1.8rem; cursor: pointer; transition: 0.3s ease; }
+        .menu-btn:hover { color: var(--neon-blue); text-shadow: var(--neon-glow); }
         
         .sidebar {
             position: fixed; top: 0; right: -100%; width: 75%; height: 100%;
-            background: #0b132b; z-index: 102; transition: 0.3s ease;
-            box-shadow: -5px 0 20px rgba(0,0,0,0.5); padding: 40px 20px;
+            background: #0b132b; z-index: 102; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -5px 0 30px rgba(0,0,0,0.6); padding: 40px 20px;
+            border-left: 1px solid rgba(0, 210, 255, 0.2);
         }
         .sidebar.active { right: 0; }
-        .sidebar .close-btn { font-size: 2rem; background: none; border: none; color: #fff; float: right; cursor: pointer; }
+        .sidebar .close-btn { font-size: 2rem; background: none; border: none; color: #fff; float: right; cursor: pointer; transition: 0.3s ease; }
+        .sidebar .close-btn:hover { color: var(--danger); }
         .sidebar-menu { list-style: none; margin-top: 60px; padding: 0; }
         .sidebar-menu li { margin: 25px 0; }
-        .sidebar-menu a { color: var(--text-main); text-decoration: none; font-size: 1.2rem; display: block; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: right; }
+        .sidebar-menu a { color: var(--text-main); text-decoration: none; font-size: 1.2rem; display: block; padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: right; transition: 0.3s ease; }
+        .sidebar-menu a:hover { color: var(--neon-blue); padding-right: 15px; border-bottom: 1px solid var(--neon-blue); }
         
-        .overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index: 101; display:none; }
+        .overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); backdrop-filter: blur(3px); z-index: 101; display:none; }
         .overlay.active { display:block; }
 
         .hero { padding: 40px 20px; text-align: center; }
-        .hero-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; }
+        .hero-title { 
+            font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; 
+            background: linear-gradient(135deg, #f8fafc 40%, var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 210, 255, 0.15);
+        }
         .hero-desc { color: var(--text-muted); font-size: 1rem; }
         .content { padding: 0 20px; display: flex; flex-direction: column; gap: 20px; max-width: 500px; margin: 0 auto; }
+        
+        /* حركة الكروت عند مرور الماوس والتوهج الحواف المتفاعل */
         .card {
             background: var(--bg-card); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px;
             padding: 24px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.3); backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
-        .badge { position: absolute; top: 22px; left: 20px; padding: 4px 12px; border-radius: 30px; font-size: 0.75rem; font-weight: bold; }
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 210, 255, 0.35);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 210, 255, 0.1);
+        }
+
+        .badge { position: absolute; top: 22px; left: 20px; padding: 4px 12px; border-radius: 30px; font-size: 0.75rem; font-weight: bold; transition: 0.3s ease; }
         .card-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
         .card-desc { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 18px; }
+        
+        /* تأثير اللمعان الانسيابي التلقائي للأزرار */
         .btn {
             display: flex; justify-content: center; align-items: center; gap: 10px;
             width: 100%; padding: 15px; margin-bottom: 12px; border-radius: 14px; font-size: 1rem; font-weight: 700; text-decoration: none;
+            position: relative; overflow: hidden; transition: all 0.3s ease;
         }
         .btn:last-child { margin-bottom: 0; }
+        
+        /* حركات التوهج للأزرار عند التفاعل */
         .btn-primary { background: linear-gradient(135deg, #0052d4, #4364f7, #6fb1fc); color: #fff; }
+        .btn-primary:hover { box-shadow: 0 0 20px rgba(67, 100, 247, 0.5); transform: translateY(-1px); }
+        
         .btn-discord { background: #5865F2; color: white; }
+        .btn-discord:hover { box-shadow: 0 0 20px rgba(88, 101, 242, 0.5); transform: translateY(-1px); }
+        
         .btn-youtube { background: #FF0000; color: white; }
+        
+        /* إضافة خط اللمعان الأبيض المتحرك تلقائياً عبر الأزرار */
+        .btn::after {
+            content: ''; position: absolute; top: -50%; left: -60%; width: 30%; height: 200%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%);
+            transform: rotate(25deg);
+            animation: lightSweep 4s infinite ease-in-out;
+        }
+        
         .footer { text-align: center; margin-top: 40px; color: var(--text-muted); font-size: 0.85rem; }
+
+        /* الأنيميشن الخاص بالمسح الضوئي والتوهج النبضي */
+        @keyframes lightSweep {
+            0% { left: -60%; }
+            20% { left: 140%; }
+            100% { left: 140%; }
+        }
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 0 10px rgba(0, 210, 255, 0.4); }
+            100% { text-shadow: 0 0 20px rgba(0, 210, 255, 0.8), 0 0 30px rgba(0, 210, 255, 0.3); }
+        }
     </style>
 </head>
 <body>
@@ -139,8 +194,10 @@
         const iosBadge = document.getElementById('ios-badge');
         if (MY_CONFIG.iosStatus === "شغالة") {
             iosBadge.innerText = "الشهادة: شغالة ✅"; iosBadge.style.background = 'var(--success)'; iosBadge.style.color = '#000';
+            iosBadge.style.boxShadow = '0 0 10px var(--success)';
         } else {
             iosBadge.innerText = "الشهادة: متوقفة ❌"; iosBadge.style.background = 'var(--danger)'; iosBadge.style.color = '#fff';
+            iosBadge.style.boxShadow = '0 0 10px var(--danger)';
         }
     </script>
 </body>
