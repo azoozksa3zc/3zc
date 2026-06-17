@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3ZC COMMUNITY</title>
+    <style>
+        :root {
+            --bg-main: #060913;
+            --bg-card: rgba(15, 22, 42, 0.75);
+            --neon-blue: #00d2ff;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #00ff66;
+            --danger: #ff3333;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body {
+            background: radial-gradient(circle at top, #111a2e 0%, var(--bg-main) 100%);
+            color: var(--text-main); min-height: 100vh; padding-bottom: 40px;
+        }
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center; padding: 20px;
+            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: sticky; top: 0; z-index: 100; background: rgba(6, 9, 19, 0.8);
+        }
+        .brand { font-size: 1.6rem; font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 15px var(--neon-blue); }
+        .menu-btn { background: none; border: none; color: var(--text-main); font-size: 1.8rem; }
+        .hero { padding: 40px 20px; text-align: center; }
+        .hero-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; }
+        .hero-desc { color: var(--text-muted); font-size: 1rem; }
+        .content { padding: 0 20px; display: flex; flex-direction: column; gap: 20px; max-width: 500px; margin: 0 auto; }
+        .card {
+            background: var(--bg-card); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px;
+            padding: 24px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.3); backdrop-filter: blur(10px);
+        }
+        .badge { position: absolute; top: 22px; left: 20px; padding: 4px 12px; border-radius: 30px; font-size: 0.75rem; font-weight: bold; }
+        .card-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
+        .card-desc { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 18px; }
+        .btn {
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+            width: 100%; padding: 15px; margin-bottom: 12px; border-radius: 14px; font-size: 1rem; font-weight: 700; text-decoration: none;
+        }
+        .btn:last-child { margin-bottom: 0; }
+        .btn-primary { background: linear-gradient(135deg, #0052d4, #4364f7, #6fb1fc); color: #fff; }
+        .btn-discord { background: #5865F2; color: white; }
+        .btn-youtube { background: #FF0000; color: white; }
+        .footer { text-align: center; margin-top: 40px; color: var(--text-muted); font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+
+    <script>
+        // ✏️ عدل روابطك وبياناتك هنا مباشرة داخل ملف index.html بسهولة:
+        const MY_CONFIG = {
+            serverName: "3ZC COMMUNITY",
+            discord: "https://discord.gg/3zc",      // رابط الديسكورد
+            youtube: "https://youtube.com/3zc",     // رابط اليوتيوب
+            iosStatus: "شغالة",                     // اكتب "شغالة" أو "متوقفة"
+            iosLink: "https://google.com",          // رابط هاك الايفون
+            androidLink: "https://google.com",      // رابط هاك الاندرويد
+            pcLink: "https://google.com"            // رابط هاك الكمبيوتر
+        };
+    </script>
+
+    <div class="navbar"><div class="brand" id="nav-title">3ZC COMMUNITY</div><button class="menu-btn">☰</button></div>
+    <div class="hero"><h1 class="hero-title">تعديل نسخة بيكورا القديمة 🛠️</h1><p class="hero-desc">تعديلات وتحسينات الهاك الشغال بالكامل</p></div>
+    
+    <div class="content">
+        <div class="card">
+            <span id="ios-badge" class="badge">جاري الفحص</span>
+            <div class="card-title">تطبيقات iOS 📱</div>
+            <p class="card-desc">تحميل الهاك المباشر لأجهزة الايفون والايباد</p>
+            <a id="ios-hack" href="#" class="btn btn-primary">🚀 الهاك الشغال (IPA)</a>
+        </div>
+        <div class="card">
+            <div class="card-title">تطبيقات Android 🤖</div>
+            <p class="card-desc">نسخة الهاك الجاهزة والتلقائية للأندرويد</p>
+            <a id="android-hack" href="#" class="btn btn-primary">🚀 الهاك الشغال (APK)</a>
+        </div>
+        <div class="card">
+            <div class="card-title">نسخة الكمبيوتر 💻</div>
+            <p class="card-desc">أدوات التشغيل والحقن المحدثة للـ PC</p>
+            <a id="pc-hack" href="#" class="btn btn-primary">🚀 تحميل نسخة الـ PC</a>
+        </div>
+        <div class="card">
+            <div class="card-title" style="justify-content: center; font-size: 1.1rem;">تواصل معنا ومتابعة التحديثات ✨</div>
+            <a id="main-discord" href="#" target="_blank" class="btn btn-discord">💬 سيرفر الديسكورد</a>
+            <a id="main-youtube" href="#" target="_blank" class="btn btn-youtube">📺 قناة اليوتيوب</a>
+        </div>
+    </div>
+
+    <div class="footer"><p>حقوق سيرفر <span id="footer-name">3ZC COMMUNITY</span> © 2026</p></div>
+
+    <script>
+        document.getElementById('nav-title').innerText = MY_CONFIG.serverName;
+        document.getElementById('footer-name').innerText = MY_CONFIG.serverName;
+        document.getElementById('main-discord').href = MY_CONFIG.discord;
+        document.getElementById('main-youtube').href = MY_CONFIG.youtube;
+        document.getElementById('ios-hack').href = MY_CONFIG.iosLink;
+        document.getElementById('android-hack').href = MY_CONFIG.androidLink;
+        document.getElementById('pc-hack').href = MY_CONFIG.pcLink;
+        const iosBadge = document.getElementById('ios-badge');
+        if (MY_CONFIG.iosStatus === "شغالة") {
+            iosBadge.innerText = "الشهادة: شغالة ✅"; iosBadge.style.background = 'var(--success)'; iosBadge.style.color = '#000';
+        } else {
+            iosBadge.innerText = "الشهادة: متوقفة ❌"; iosBadge.style.background = 'var(--danger)'; iosBadge.style.color = '#fff';
+        }
+    </script>
+</body>
+</html>
