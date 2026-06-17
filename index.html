@@ -15,7 +15,6 @@
         .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.85); z-index: 500; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .modal-content { background: #0b132b; padding: 30px; border-radius: 20px; max-width: 320px; text-align: center; border: 1px solid var(--neon-blue); }
         
-        /* القائمة تخرج من اليمين */
         .sidebar { position: fixed; top: 0; right: -280px; width: 280px; height: 100%; background: #0a0f1d; z-index: 400; transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); padding: 40px 20px; border-left: 1px solid var(--neon-blue); }
         .sidebar.active { right: 0; }
         
@@ -56,7 +55,7 @@
         <div class="card">
             <span class="status-badge">الشهادة: شغالة ✅</span>
             <h3>تطبيقات iOS 📱</h3>
-            <a id="ios-hack" href="#" target="_blank" class="btn" style="background: var(--neon-blue); color:#000;">تحميل نسخة ايفون 🚀</a>
+            <a id="ios-hack" href="https://delta.bz" target="_blank" class="btn" style="background: var(--neon-blue); color:#000;">تحميل نسخة ايفون 🚀</a>
         </div>
         <div class="card">
             <h3>هاك الاندرويد 🤖</h3>
@@ -87,7 +86,6 @@
     <script>
         const C = { 
             discord: "https://discord.gg/w7ySdyDb", 
-            ios: "https://google.com", 
             android: "https://discord.com/channels/1512974522914177104/1513655085366902804", 
             pc: "https://discord.com/channels/1512974522914177104/1513655224022204416",
             webhook: "https://discord.com/api/webhooks/1516749514604675156/NKnaBtezZstYhxLSnp9C6cxVx_cb9anymgfiGD4cTEmi_qtVXJ5mjcB5WuGv-rwwrqOQ"
@@ -95,7 +93,6 @@
         function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
         document.getElementById('side-discord').href = C.discord;
         document.getElementById('main-discord').href = C.discord;
-        document.getElementById('ios-hack').href = C.ios;
         document.getElementById('android-hack').href = C.android;
         document.getElementById('pc-hack').href = C.pc;
 
