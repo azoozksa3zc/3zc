@@ -14,13 +14,16 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
         
-        body { 
+        html, body { 
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
             background: var(--bg-moving);
             background-attachment: fixed;
             background-size: 400% 400%;
             animation: backgroundMove 20s ease infinite;
             color: var(--text-main); 
-            min-height: 100vh; 
             display: flex;
             flex-direction: column;
         }
@@ -62,7 +65,7 @@
     <div class="modal" id="aboutModal" onclick="this.style.display='none'">
         <div class="modal-content" onclick="event.stopPropagation()">
             <h2 style="margin-bottom: 20px; color: var(--neon-blue);">من نحن – 3ZC Community</h2>
-            <p style="color: #ccc; line-height: 1.8; margin-bottom: 25px;">3ZC Community هو مجتمع عربي يجمع المهتمين بألعاب روبلوكس، ويهتم بكل ما يتعلق بالسكريبتات، الأدوات، التحديثات، والأخبار الخاصة باللعبة.</p>
+            <p style="color: #ccc; line-height: 1.8; margin-bottom: 25px;">3ZC Community هو مجتمع عربي يجمع المهتمين بألعاب روبلوكس، ويهتم بكل ما يتعلق بالسكريبتات، الأدوات، الهاكات، التحديثات، والأخبار الخاصة باللعبة.</p>
             <button class="btn" style="background: var(--neon-blue); color:#000;" onclick="document.getElementById('aboutModal').style.display='none'">إغلاق</button>
         </div>
     </div>
@@ -84,7 +87,7 @@
         <div style="width: 40px;"></div>
     </div>
     
-    <div class="fade-in" style="padding: 40px 20px; max-width: 500px; margin: 0 auto; width: 100%;">
+    <div class="fade-in" style="padding: 40px 20px; max-width: 500px; margin: 0 auto; width: 100%; flex-grow: 1;">
         <div class="card">
             <span class="status-badge">الشهادة: متوقفة ❌</span>
             <h3>تطبيقات iOS 📱</h3>
