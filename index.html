@@ -14,9 +14,11 @@
         .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.85); z-index: 500; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .modal-content { background: #0b132b; padding: 30px; border-radius: 20px; max-width: 320px; text-align: center; border: 1px solid var(--neon-blue); }
         
-        /* القائمة بتصميم عصري وأنيق */
-        .sidebar { position: fixed; top: 0; left: -260px; width: 260px; height: 100%; background: rgba(10, 15, 30, 0.98); z-index: 400; transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); padding: 40px 20px; border-left: 1px solid var(--neon-blue); box-shadow: -5px 0 20px rgba(0,0,0,0.5); }
+        /* القائمة الجانبية مدمجة ومختصرة */
+        .sidebar { position: fixed; top: 0; left: -220px; width: 200px; height: 100%; background: rgba(10, 15, 30, 0.98); z-index: 400; transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); padding: 20px; border-left: 1px solid var(--neon-blue); display: flex; flex-direction: column; }
         .sidebar.active { left: 0; }
+        .sidebar ul { list-style: none; margin-top: 20px; width: 100%; }
+        .sidebar li { margin: 10px 0; }
         
         .card { background: rgba(15, 22, 42, 0.6); border: 1px solid rgba(0,210,255,0.1); border-radius: 20px; padding: 25px; margin-bottom: 20px; }
         
@@ -38,10 +40,10 @@
     </div>
 
     <div class="sidebar" id="sidebar">
-        <button onclick="toggleMenu()" style="background:none; border:none; color:white; font-size:2rem; cursor:pointer; margin-bottom:20px;">✕</button>
-        <ul style="list-style:none;">
-            <li style="margin:20px 0;"><a id="side-discord" href="#" target="_blank" style="color:white; text-decoration:none; font-size: 1.1rem; display:block; padding:10px; border-radius:10px; background:rgba(255,255,255,0.05);">الدعم الفني 👾</a></li>
-            <li style="margin:20px 0;"><a href="#" onclick="document.getElementById('aboutModal').style.display='flex'; toggleMenu();" style="color:white; text-decoration:none; font-size: 1.1rem; display:block; padding:10px; border-radius:10px; background:rgba(255,255,255,0.05);">من نحن ℹ️</a></li>
+        <button onclick="toggleMenu()" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer; align-self: flex-start;">✕</button>
+        <ul>
+            <li><a id="side-discord" href="#" target="_blank" style="color:white; text-decoration:none; display:block; padding:10px;">الدعم الفني 👾</a></li>
+            <li><a href="#" onclick="document.getElementById('aboutModal').style.display='flex'; toggleMenu();" style="color:white; text-decoration:none; display:block; padding:10px;">من نحن ℹ️</a></li>
         </ul>
     </div>
 
