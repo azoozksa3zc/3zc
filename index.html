@@ -12,19 +12,15 @@
         .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid rgba(0, 210, 255, 0.2); background: rgba(6, 9, 19, 0.95); }
         .brand { font-size: 1.8rem; font-weight: 900; cursor: pointer; text-shadow: 0 0 15px var(--neon-blue); }
         
-        /* القائمة الجانبية المتميزة */
         .sidebar { position: fixed; top: 0; left: -300px; width: 250px; height: 100%; z-index: 600; transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1); padding: 40px 20px; border-left: 2px solid var(--neon-blue); background: linear-gradient(180deg, #0a0f1d 0%, #060913 100%); box-shadow: -10px 0 30px rgba(0,0,0,0.8); }
         .sidebar.active { left: 0; }
         .sidebar ul { list-style: none; margin-top: 50px; }
         .sidebar li { margin: 30px 0; font-size: 1.1rem; border-bottom: 1px solid rgba(0,210,255,0.1); padding-bottom: 15px; }
-        
-        /* لمسة احترافية للفراغ */
         .sidebar-footer { position: absolute; bottom: 40px; left: 0; width: 100%; text-align: center; font-size: 0.8rem; color: var(--neon-blue); opacity: 0.6; }
 
         .card { background: rgba(15, 22, 42, 0.6); border: 1px solid rgba(0,210,255,0.1); border-radius: 20px; padding: 25px; margin-bottom: 20px; }
         .btn { position: relative; overflow: hidden; display: block; width: 100%; padding: 15px; margin-top: 10px; border-radius: 10px; font-weight: 700; text-decoration: none; color: #fff; text-align: center; border: 1px solid rgba(255,255,255,0.1); transition: 0.4s; }
         .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; background: #ff4444; color: #fff; font-size: 0.75rem; font-weight: bold; margin-bottom: 10px; }
-        .footer { text-align: center; padding: 30px; color: #475569; font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -35,8 +31,7 @@
         </button>
         <ul>
             <li><a id="side-discord" href="#" target="_blank" style="color:white; text-decoration:none;"><i class="fa-brands fa-discord"></i> الدعم الفني</a></li>
-            <li><a href="#" onclick="document.getElementById('aboutModal').style.display='flex'; toggleMenu();" style="color:white; text-decoration:none;"><i class="fa-solid fa-circle-info"></i> من نحن</a></li>
-            <li><a href="#" style="color:white; text-decoration:none; opacity:0.5; cursor:default;"><i class="fa-brands fa-youtube"></i> يوتيوب (قريباً)</a></li>
+            <li><a href="#" onclick="toggleMenu()" style="color:white; text-decoration:none;"><i class="fa-solid fa-circle-info"></i> من نحن</a></li>
         </ul>
         <div class="sidebar-footer">3ZC COMMUNITY<br>إبداع بلا حدود</div>
     </div>
@@ -64,6 +59,13 @@
         <div class="card">
             <h3>فروعنا 🔗</h3>
             <a id="main-discord" href="#" target="_blank" class="btn" style="background:#5865F2;"><i class="fa-brands fa-discord"></i> سيرفر الديسكورد</a>
+            <div class="btn" style="background:#222; cursor:default; opacity:0.7;"><i class="fa-brands fa-youtube"></i> يوتيوب 🔴 (قريباً)</div>
+            <div class="btn" style="background:#222; cursor:default; opacity:0.7;"><i class="fa-brands fa-telegram"></i> تليجرام ✈️ (قريباً)</div>
+        </div>
+        <div class="card">
+            <h3>اقتراحاتكم للموقع ✨</h3>
+            <textarea id="suggestion-text" style="width: 100%; padding: 12px; border-radius: 8px; background: #0b132b; border: 1px solid rgba(255,255,255,0.1); color: #fff; margin-bottom: 10px;" rows="3" placeholder="اكتب اقتراحك هنا..."></textarea>
+            <button id="send-btn" onclick="sendSuggestion()" class="btn" style="background:var(--neon-blue); color:#000;">إرسال الاقتراح ✉️</button>
         </div>
     </div>
 
@@ -71,13 +73,23 @@
         const C = { 
             discord: "https://discord.gg/w7ySdyDb", 
             android: "https://discord.com/channels/1512974522914177104/1513655085366902804", 
-            pc: "https://discord.com/channels/1512974522914177104/1513655224022204416"
+            pc: "https://discord.com/channels/1512974522914177104/1513655224022204416",
+            webhook: "https://discord.com/api/webhooks/1516749514604675156/NKnaBtezZstYhxLSnp9C6cxVx_cb9anymgfiGD4cTEmi_qtVXJ5mjcB5WuGv-rwwrqOQ"
         };
         function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
         document.getElementById('side-discord').href = C.discord;
         document.getElementById('main-discord').href = C.discord;
         document.getElementById('android-hack').href = C.android;
         document.getElementById('pc-hack').href = C.pc;
+
+        function sendSuggestion() {
+            const btn = document.getElementById('send-btn');
+            const text = document.getElementById('suggestion-text').value.trim();
+            if(!text) return alert('اكتب اقتراحك أولاً!');
+            btn.disabled = true; btn.innerText = "انتظر 30 ثانية...";
+            fetch(C.webhook, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({embeds: [{title: "📥 اقتراح جديد", description: text, color: 0x00d2ff}]}) })
+            .then(() => { alert('تم الإرسال!'); document.getElementById('suggestion-text').value = ''; let t = 30; const i = setInterval(() => { t--; btn.innerText = "انتظر " + t + " ثانية..."; if(t <= 0) { clearInterval(i); btn.disabled = false; btn.innerText = "إرسال الاقتراح ✉️"; } }, 1000); });
+        }
     </script>
 </body>
 </html>
